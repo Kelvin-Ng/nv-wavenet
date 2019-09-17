@@ -27,7 +27,7 @@
 
 NVCC = nvcc
 
-ARCH=sm_70
+ARCH=sm_60
 NVCC_FLAGS = -arch=$(ARCH) -std=c++11  -g
 NVCC_FLAGS += --use_fast_math
 
@@ -35,13 +35,10 @@ MAX_REGS = 128
 #MAX_REGS = 64
 
 HEADERS = nv_wavenet_util.cuh \
-		  nv_wavenet_singleblock.cuh \
-		  nv_wavenet_dualblock.cuh \
 		  nv_wavenet_persistent.cuh \
 		  nv_wavenet.cuh \
 		  matrix_math.cuh \
-		  softmax.cuh \
-		  nv_wavenet_conversions.cuh
+		  softmax.cuh
 
 default: test
 

@@ -52,17 +52,6 @@ static __device__ __forceinline__ half toHalf(half f) {
     return __float2half(f);
 }
 
-template <typename T>
-__global__ void vectorizeWeights(int M, int K,half2* weights_vectorized, T* weights_unvectorized) {
-    int row = blockIdx.x*blockDim.x + threadIdx.x;
-    for (int k=0; k<K; k+= 2) { 
-        half2 stage;
-        stage.x = toHalf(weights_unvectorized[M*k + row]);
-        stage.y = toHalf(weights_unvectorized[M*(k+1) + row]);
-        weights_vectorized[M*(k/2) + row] = stage;
-    }
-}
-
 template <int M, int K>
 __device__ __inline__ void loadVectorizedWeights(half2 weights_local[K/2], half2* weights_remote, int layer, int thread_id, int lda=M) {
 
